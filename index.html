@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <script
+    src="https://kit.fontawesome.com/b02dfc57dc.js"
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+
+    <!-- NAV BAR SECTION -->
+    <nav class="bg-gray-800 ">
+      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div class="relative flex h-16 items-center justify-between">
+          <!-- Mobile menu button -->
+          <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+            <button
+              type="button"
+              class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              aria-controls="mobile-menu"
+              aria-expanded="false"
+              onclick="toggleMobileMenu()"
+            >
+              <span class="sr-only">Open main menu</span>
+              <svg
+                class="block h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Logo and links -->
+          <div
+            class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
+          >
+            <div class="flex flex-shrink-0 items-center">
+              <img
+                class="h-8 w-auto"
+                src="https://i.ibb.co/TPtpHxF/logo-of-wonder2.png"
+                alt="Your Company"
+              />
+            </div>
+            <div class="hidden sm:ml-6 sm:block">
+              <div class="flex space-x-4">
+                <a
+                  href="#"
+                  class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                  aria-current="page"
+                  >Menu</a
+                >
+                <a
+                  href="#"
+                  class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >Rewards</a
+                >
+                <a
+                  href="#"
+                  class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >Location</a
+                >
+                <a
+                  href="#"
+                  class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >Gift</a
+                >
+                <a
+                  href="#"
+                  class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >Log In</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Profile and notifications -->
+          <div
+            class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
+          >
+
+          
+            <!-- Notifications -->
+            <button
+              type="button"
+              class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+              id="open-cart-button" 
+            >
+              <i class="fa-solid fa-bag-shopping" style="color: #b5b5b5"></i>
+              <span class="mr-4 cart-header" id="cart-header"> 0</span>
+            </button>
+
+    
+
+
+
+            <!-- Profile dropdown -->
+            <div class="relative ml-3">
+              <div>
+                <button
+                  type="button"
+                  class="relative flex rounded-md bg-red-500 text-xs focus:outline-none focus:ring-2 px-4 py-2 font-medium text-gray-50 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  id="user-menu-button"
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                >
+                  Order Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="sm:hidden hidden" id="mobile-menu">
+        <div class="space-y-1 px-2 pb-3 pt-2">
+          <a
+            href="#"
+            class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
+            aria-current="page"
+            >Dashboard</a
+          >
+          <a
+            href="#"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >Team</a
+          >
+          <a
+            href="#"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >Projects</a
+          >
+          <a
+            href="#"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >Calendar</a
+          >
+        </div>
+      </div>
+    </nav>
+
+
+
+    
+    <section class="container mx-auto py-10">
+
+       <!-- Menu Section -->
+      <div class="w-6/12 mx-auto">
+        <h1 class="text-4xl font-bold mb-6 text-center">
+          CHICKEN CRISPER® COMBOS
+        </h1>
+        <p class="text-center mb-10">
+          Find everything from our Big Mouth Burgers®, our always sizzling,
+          Full-on Fajitas and our famous Chicken Crispers®.
+        </p>
+      </div>
+
+      <!-- Products -->
+      <div class="grid grid-cols-1 md:grid-cols-8 gap-8">
+
+        <!-- Category Filters just for demo -->
+        <div>
+          
+
+          
+
+        </div>
+
+
+        <div class="col-span-6 grid md:grid-cols-3 h-fit">
+          <div class="bg-white col-span-1 p-6 rounded-lg shadow-md" id="item-1">
+            <img
+              src="https://images.unsplash.com/photo-1608039755401-742074f0548d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Chicken"
+              class="w-full h-40 object-cover mb-4"
+            />
+            <h3 class="text-lg font-bold">Chic Customize ken</h3>
+            <p class="text-gray-600 text-xs mb-2">695$/each</p>
+            <p class="text-gray-600 text-md mb-2 description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste rerum optio odio hic ab laboriosam.</p>
+        
+            <button
+              class="add-to-cart bg-red-500 text-sm text-white px-2 py-2 w-full rounded-md hover:bg-red-600"
+              data-id="1"
+              data-name="Chicken"
+              data-price="695"
+            >
+              Add to Cart
+            </button>
+            <button
+              class="border border-red-500 text-red-500 mt-3 px-2 py-1 w-full rounded-md"
+              data-id="1"
+            >
+              Customize
+            </button>
+          </div>
+        
+          <div class="bg-white col-span-1 p-6 rounded-lg shadow-md" id="item-2">
+            <img
+              src="https://images.unsplash.com/photo-1608039755401-742074f0548d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Chicken"
+              class="w-full h-40 object-cover mb-4"
+            />
+            <h3 class="text-lg font-bold">Chicken Customize</h3>
+            <p class="text-gray-600 text-xs mb-2">695$/each</p>
+            <p class="text-gray-600 text-md mb-2 description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste rerum optio odio hic ab laboriosam.</p>
+        
+            <button
+              class="add-to-cart bg-red-500 text-sm text-white px-2 py-2 w-full rounded-md hover:bg-red-600"
+              data-id="2"
+              data-name="Chicken"
+              data-price="695"
+            >
+              Add to Cart
+            </button>
+            <button
+              class="border border-red-500 text-red-500 mt-3 px-2 py-1 w-full rounded-md"
+              data-id="2"
+            >
+              Customize
+            </button>
+          </div>
+        
+          <div class="bg-white col-span-1 p-6 rounded-lg shadow-md" id="item-3">
+            <img
+              src="https://images.unsplash.com/photo-1608039755401-742074f0548d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Chicken"
+              class="w-full h-40 object-cover mb-4"
+            />
+            <h3 class="text-lg font-bold">Chicken Lorem ipsum dolor</h3>
+            <p class="text-gray-600 text-xs mb-2">695$/each</p>
+            <p class="text-gray-600 text-md mb-2 description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste rerum optio odio hic ab laboriosam.</p>
+        
+            <button
+              class="add-to-cart bg-red-500 text-sm text-white px-2 py-2 w-full rounded-md hover:bg-red-600"
+              data-id="3"
+              data-name="Chicken"
+              data-price="695"
+            >
+              Add to Cart
+            </button>
+            <button
+              class="border border-red-500 text-red-500 mt-3 px-2 py-1 w-full rounded-md"
+              data-id="3"
+            >
+              Customize
+            </button>
+          </div>
+        </div>
+
+        <!-- Cart Sidebar -->
+<!-- Cart Sidebar -->
+<div class="fixed inset-y-12 right-0 w-60 mt-4 bg-white shadow-xl transition-transform transform translate-x-full" id="cart-sidebar">
+  
+  <div class="flex h-full flex-col">
+    <div class="flex-1 py-6 sm:px-2">
+      <div class="flex items-start justify-between">
+        <h2 id="cart-header2" class="text-lg font-medium  text-gray-900">Total items: 0</h2>
+        <button type="button" class="-m-2 p-2 border text-gray-400 hover:text-gray-500" id="close-cart">
+          Close
+        </button>
+      </div>
+      <div id="cart-items-container" class="mt-8 border border-red-700 ">
+        <!-- Cart items will be injected here -->
+      </div>
+    </div>
+    <div class="border-t border-gray-200  py-6 sm:px-2">
+      <div class="flex justify-between text-base font-medium text-gray-900">
+        <p>Subtotal</p>
+        <p id="cart-total">$0.00</p>
+      </div>
+      <div class="mt-6">
+        <a href="#" class="flex items-center justify-center rounded-md bg-red-500 py-3 text-white hover:bg-red-700">Checkout</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+        
+      </div>
+
+
+    </section>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
