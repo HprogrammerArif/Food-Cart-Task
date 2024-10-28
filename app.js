@@ -62,6 +62,7 @@ const addItemToCart = (id, name, price, imageUrl) => {
     existingItem.quantity += 1; // Increase quantity if item already exists
   } else {
     cart.push({ id, name, price, quantity: 1, imageUrl }); // Add new item to the cart with image URL
+
   }
   updateCartUI(); // Refresh the UI
   saveCartToLocalStorage(); // Save to local storage
@@ -152,6 +153,8 @@ const enableAddToCartButton = (id) => {
   }
 }
 
+
+
 // Function to update the cart header with total items count
 const updateCartHeader = (totalItems) => {
   const cartHeader = document.getElementById("cart-header");
@@ -187,5 +190,18 @@ function loadCartFromLocalStorage() {
     console.error("Error parsing cart data from local storage:", error);
     cart = []; // Fallback to empty array if parsing fails
   }
+
+  cart.forEach((item) => {
+    console.log(item);
+    const buttonToDisable = document.querySelector(`.add-to-cart[data-id="${item?.id}"]`);
+  if (buttonToDisable) {
+    buttonToDisable.disabled = true;
+    buttonToDisable.classList.add("opacity-50", "cursor-not-allowed");
+  }
+    
+  })
+
   updateCartUI(); // Update UI with loaded cart data
 }
+
+
