@@ -1,61 +1,70 @@
 // Function to toggle the visibility of the mobile menu
 const toggleMobileMenu = () => {
   const mobileMenu = document.getElementById("mobile-menu");
-  mobileMenu.classList.toggle("hidden"); // Show/hide mobile menu
-};
+  mobileMenu.classList.toggle("hidden");
+}
+
 
 // Cart-related variables and elements
-let cart = []; // Array to store items added to the cart
+const cart = []; // Array to store items added to the cart
+
 const cartSidebar = document.getElementById("cart-sidebar"); // Sidebar element for the cart
 const cartItemsContainer = document.getElementById("cart-items-container"); // Container for items in the cart
 const cartTotal = document.getElementById("cart-total"); // Element to display total cart amount
 
-// Load cart from local storage on page load
-document.addEventListener("DOMContentLoaded", loadCartFromLocalStorage);
+
 
 // Function to close the cart sidebar
 const closeCart = () => {
-  cartSidebar.classList.add("translate-x-full"); // Hide the sidebar
-};
-
+  cartSidebar.classList.add("translate-x-full"); // Adds 'translate-x-full' to hide the sidebar
+}
 // Event listener to close the cart when the close button is clicked
 document.getElementById("close-cart").addEventListener("click", closeCart);
 
-// Function to toggle the cart sidebar visibility
+
+// Function to toggle the cart sidebar
 const toggleCart = () => {
-  cartSidebar.classList.toggle("translate-x-full"); // Show/hide the sidebar
-};
+  cartSidebar.classList.toggle("translate-x-full"); // Toggles 'translate-x-full' to show/hide the sidebar
+}
 
 // Function to open the cart sidebar
 const openCart = () => {
-  cartSidebar.classList.remove("translate-x-full"); // Make sidebar visible
-};
+  cartSidebar.classList.remove("translate-x-full"); // Removes 'translate-x-full' to make sidebar visible
+}
 
-// Event listeners to add items to the cart when "Add to Cart" buttons are clicked
+
+
+// Adds event listeners to all "Add to Cart" buttons
 document.querySelectorAll(".add-to-cart").forEach((button) => {
   button.addEventListener("click", (event) => {
-    const buttonClicked = event.target;
 
-    // Disable button to prevent multiple clicks
+    // // Disable the button to prevent multiple clicks
+    // button.disabled = true;
+    // button.classList.add("opacity-50"); // Optional: to visually indicate the button is disabled
+
+    const buttonClicked = event.target;
+    
+    // Disable the button to prevent multiple clicks
     buttonClicked.disabled = true;
-    buttonClicked.classList.add("opacity-50", "cursor-not-allowed");
+    buttonClicked.classList.add("opacity-50", "cursor-not-allowed"); // Optional: add styling for disabled state
+
 
     // Fetch item details
     const itemId = event.target.getAttribute("data-id");
     const itemCard = event.target.closest(".p-6");
     const itemName = itemCard.querySelector("h3").innerText;
-    const itemPrice = parseFloat(itemCard.querySelector("p").innerText.replace("$", ""));
-    const itemImage = itemCard.querySelector("img").getAttribute("src"); // Assuming item card has an image element
+    const itemPrice = parseFloat(
+      itemCard.querySelector("p").innerText.replace("$", "")
+    );
 
-    // Add item to cart
+    // Example of how to add an item to the cart with image URL
+    const itemImage = itemCard.querySelector("img").getAttribute("src"); // Assuming you have an image element in your item card
     addItemToCart(itemId, itemName, itemPrice, itemImage);
   });
 });
 
 // Function to add an item to the cart
 const addItemToCart = (id, name, price, imageUrl) => {
-  if (!Array.isArray(cart)) cart = []; // Ensure cart is an array
-
   // Check if item already exists in cart
   const existingItem = cart.find((item) => item.id === id);
   if (existingItem) {
@@ -64,23 +73,24 @@ const addItemToCart = (id, name, price, imageUrl) => {
     cart.push({ id, name, price, quantity: 1, imageUrl }); // Add new item to the cart with image URL
   }
   updateCartUI(); // Refresh the UI
-  saveCartToLocalStorage(); // Save to local storage
   openCart(); // Open the cart sidebar after adding an item
-};
+}
 
-// Function to update the cart UI
+
+
 const updateCartUI = () => {
+
   cartItemsContainer.innerHTML = ""; // Clear previous cart items
   let total = 0;
-  let totalItems = 0; // Holds the total number of items
+  let totalItems = 0; // Variable to hold the total number of items
 
   // Loop through cart items to display each one
   cart.forEach((item) => {
     const itemTotal = item.price * item.quantity;
     total += itemTotal;
-    totalItems += item.quantity; // Update total items
+    totalItems += item.quantity; // Update totalItems with the quantity of the current item
 
-    // Cart item structure with image, title, price, and quantity controls
+    // Cart item HTML structure with image, title, price, and quantity controls
     const cartItem = document.createElement("div");
     cartItem.classList.add("flex", "justify-between", "items-center", "py-2");
 
@@ -95,65 +105,79 @@ const updateCartUI = () => {
         <span class="mx-2">${item.quantity}</span>
         <button class="increase-quantity mr-2 text-gray-600" data-id="${item.id}">+</button>
       </div>
+
       <div class="flex flex-col justify-between mr-2">
         <button class="delete-item font-medium text-xs text-red-900 border" data-id="${item.id}">DELETE</button>
         <p class="font-medium text-xs mt-2 text-gray-900">$${itemTotal.toFixed(2)}</p>
       </div>
     `;
 
-    cartItemsContainer.appendChild(cartItem); // Add item to the cart container
+    cartItemsContainer.appendChild(cartItem); // Add the item to the cart container
 
-    // DELETE button event listener
-    cartItem.querySelector(".delete-item").addEventListener("click", (event) => {
-      const button = event.target;
-      deleteItemFromCart(item.id, button); // Pass button to enable it again after deletion
-    });
+
+    // Update the event listener for DELETE button in updateCartUI
+cartItem.querySelector(".delete-item").addEventListener("click", (event) => {
+  const button = event.target; // Get the button element that was clicked
+  console.log(button, item.id);
+  
+  deleteItemFromCart(item.id, button); // Pass the button to enable it again after deletion
+});
+
+
   });
 
   cartTotal.innerText = `$${total.toFixed(2)}`; // Update the subtotal
-  updateCartHeader(totalItems); // Update header with total items count
+  updateCartHeader(totalItems); // Update the header with the total items count
 
-  // Add event listeners for quantity control buttons
-  cartItemsContainer.querySelectorAll(".increase-quantity").forEach((button) => {
-    button.addEventListener("click", () => {
-      const itemId = button.getAttribute("data-id");
-      updateItemQuantity(itemId, 1); // Increase quantity
-    });
-  });
 
-  cartItemsContainer.querySelectorAll(".decrease-quantity").forEach((button) => {
-    button.addEventListener("click", () => {
-      const itemId = button.getAttribute("data-id");
-      updateItemQuantity(itemId, -1); // Decrease quantity
+  // Add event listeners for increase and decrease buttons
+  cartItemsContainer
+    .querySelectorAll(".increase-quantity")
+    .forEach((button) => {
+      button.addEventListener("click", () => {
+        const itemId = button.getAttribute("data-id");
+        updateItemQuantity(itemId, 1); // Increase quantity
+      });
     });
-  });
-};
+
+  cartItemsContainer
+    .querySelectorAll(".decrease-quantity")
+    .forEach((button) => {
+      button.addEventListener("click", () => {
+        const itemId = button.getAttribute("data-id");
+        updateItemQuantity(itemId, -1); // Decrease quantity
+      });
+    });
+}
+
+
+
 
 // Function to delete an item from the cart
 function deleteItemFromCart(id, button) {
+  // Find the index of the item to delete
   const itemIndex = cart.findIndex((item) => item.id === id);
   if (itemIndex !== -1) {
     cart.splice(itemIndex, 1); // Remove the item from the cart
+  }
 
-    enableAddToCartButton(id);
+  // Enable the button after deletion
+  if (button) {
+    console.log("Button before enabling:", button); // Check the button element
+    button.removeAttribute("disabled");
+button.classList.remove("opacity-50"); // Remove class visually
+  } else {
+    console.warn("Button not found or undefined");
   }
   
-  updateCartUI();
-  saveCartToLocalStorage(); // Save updated cart to local storage
+  updateCartUI(); // Refresh the UI after deletion
 }
 
-// Function to enable the "Add to Cart" button
-const enableAddToCartButton = (id) => {
-  // Find the button associated with the removed item and re-enable it
-  const buttonToEnable = document.querySelector(`.add-to-cart[data-id="${id}"]`);
-  if (buttonToEnable) {
-    buttonToEnable.disabled = false;
-    buttonToEnable.classList.remove("opacity-50", "cursor-not-allowed");
-  }
-}
 
-// Function to update the cart header with total items count
-const updateCartHeader = (totalItems) => {
+
+
+// Function to update the cart header
+function updateCartHeader(totalItems) {
   const cartHeader = document.getElementById("cart-header");
   const cartHeader2 = document.getElementById("cart-header2");
   cartHeader.innerText = ` ${totalItems}`;
@@ -161,31 +185,14 @@ const updateCartHeader = (totalItems) => {
 }
 
 // Function to update the item quantity in the cart
-const updateItemQuantity = (id, change) => {
+function updateItemQuantity(id, change) {
   const item = cart.find((item) => item.id === id);
   if (item) {
-    item.quantity += change;
+    item.quantity += change; // Adjust quantity
     if (item.quantity <= 0) {
+      // Remove item from cart if quantity is 0
       cart.splice(cart.indexOf(item), 1);
     }
-    updateCartUI();
-    saveCartToLocalStorage();
+    updateCartUI(); // Refresh the UI
   }
-}
-
-// Function to save the cart to local storage
-function saveCartToLocalStorage() {
-  localStorage.setItem("cart", JSON.stringify(cart));
-}
-
-// Function to load the cart from local storage
-function loadCartFromLocalStorage() {
-  const savedCart = localStorage.getItem("cart");
-  try {
-    cart = JSON.parse(savedCart) || []; // Fallback to empty array if parsing fails
-  } catch (error) {
-    console.error("Error parsing cart data from local storage:", error);
-    cart = []; // Fallback to empty array if parsing fails
-  }
-  updateCartUI(); // Update UI with loaded cart data
 }
