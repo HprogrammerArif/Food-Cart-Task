@@ -123,8 +123,10 @@ const updateCartUI = () => {
   });
 
   cartItemsContainer.querySelectorAll(".decrease-quantity").forEach((button) => {
+        
     button.addEventListener("click", () => {
       const itemId = button.getAttribute("data-id");
+      
       updateItemQuantity(itemId, -1); // Decrease quantity
     });
   });
@@ -166,10 +168,12 @@ const updateCartHeader = (totalItems) => {
 // Function to update the item quantity in the cart
 const updateItemQuantity = (id, change) => {
   const item = cart.find((item) => item.id === id);
+  console.log(item);
   if (item) {
     item.quantity += change;
     if (item.quantity <= 0) {
       cart.splice(cart.indexOf(item), 1);
+      enableAddToCartButton(id);
     }
     updateCartUI();
     saveCartToLocalStorage();
